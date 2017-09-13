@@ -10,26 +10,33 @@ export default class Main extends Component {
       jokes: [],
       qty: 10,
     }
+    this.setQty = this.setQty.bind(this);
+    this.getJokes = this.getJokes.bind(this);
   }
 
+  componentDidMount() {
+    this.getJokes();
+  }
 
   setQty(qty) {
     //add some codes
   }
 
   getJokes() {
-    //add some codes
+    fetch("http://api.icndb.com/jokes/random/10?exclude=[explicit]")
+      .then(response => response.json())
+      .then(jokesResponseObject => this.setState({ jokes: jokesResponseObject.value }))
+      .catch(error => console.log('Error retreiving jokes!: ', error))
   }
 
   render() {
-    let { qty, jokes, showJokes } = this.state;
     return (
       <div>
         <h1>JOKES!</h1>
-        <Controls qty={qty}
-                  setQty={this.setQty.bind(this)}
-                  getJokes={this.getJokes.bind(this)}/>
-        <JokeList jokes={jokes} showJokes={showJokes}/>
+        <Controls qty={this.state.qty}
+                  setQty={this.setQty}
+                  getJokes={this.getJokes} />
+        <JokeList jokesArray={this.state.jokes} />
       </div>
     )
   }

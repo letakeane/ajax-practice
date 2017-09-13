@@ -1,8 +1,10 @@
 import React from 'react';
 
-const Joke = ({ joke }) => {
+const Joke = (props) => {
+  let { jokeObject } = props;
+
   return (
-    <li key={joke.id}>{joke.joke}</li>
+    <li key={jokeObject.id}>{jokeObject.joke}</li>
   )
 }
 

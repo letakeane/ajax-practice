@@ -1,8 +1,10 @@
 import React from 'react';
 import Joke from './Joke';
 
-const JokeList = ({ jokes, showJokes }) => {
-  if(!jokes.length) {
+const JokeList = (props) => {
+  let { jokesArray } = props;
+
+  if(!jokesArray.length) {
     return (
       <p>Click to add some jokes!</p>
     )
@@ -11,7 +13,11 @@ const JokeList = ({ jokes, showJokes }) => {
   return (
     <div>
       <ul>
-        {/* need some jokes here! */}
+        {
+          jokesArray.map((jokeObject) => {
+            return <Joke jokeObject={jokeObject} />
+          })
+        }
       </ul>
     </div>
   )
