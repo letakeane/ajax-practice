@@ -19,11 +19,11 @@ export default class Main extends Component {
   }
 
   setQty(qty) {
-    //add some codes
+    this.setState({ qty: qty })
   }
 
   getJokes() {
-    fetch("http://api.icndb.com/jokes/random/10?exclude=[explicit]")
+    fetch(`http://api.icndb.com/jokes/random/${this.state.qty}?exclude=[explicit]`)
       .then(response => response.json())
       .then(jokesResponseObject => this.setState({ jokes: jokesResponseObject.value }))
       .catch(error => console.log('Error retreiving jokes!: ', error))
@@ -35,7 +35,7 @@ export default class Main extends Component {
         <h1>JOKES!</h1>
         <Controls qty={this.state.qty}
                   setQty={this.setQty}
-                  getJokes={this.getJokes} />
+                  getJokes={this.getJokes}/>
         <JokeList jokesArray={this.state.jokes} />
       </div>
     )
